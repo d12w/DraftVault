@@ -1,28 +1,29 @@
 # DraftVault
 
 > [!WARNING]
-> **BETA ONLY — DraftVault is currently in beta.** It is experimental software and may contain bugs or behavior changes. Use it with that in mind and keep important drafts backed up elsewhere.
+> **BETA ONLY — DraftVault is currently in beta.** It is experimental software and may contain bugs or behavior changes. Do not rely on it as your only copy of important drafts.
 
-DraftVault is a local Discord draft-history plugin for **Vencord and Equicord**. It automatically saves earlier text versions of your unsent messages and lets you search, browse, and restore them to Discord's composer without sending anything.
+DraftVault is a local Discord draft-history plugin for **Vencord and Equicord**. It automatically keeps previous text versions of your unsent messages so you can search, browse, and restore a draft to Discord's composer without sending it.
 
 ## Preview
 
-A short preview recorded by the author shows the DraftVault interface and how saved drafts are browsed and restored.
+This short recording, captured by the author, demonstrates the DraftVault interface and its draft-browsing and restore workflow.
 
-[▶ Watch the DraftVault preview video](docs/preview.mp4)
+[▶ Watch the DraftVault preview](docs/preview.mp4)
 
 ## Features
 
-- Automatically saves text draft versions as you type, with a short debounce.
+- Automatically saves text draft versions when Discord's native DraftStore updates, with a 550 ms debounce.
+- Captures outgoing draft text just before sending, so a quick send is not missed by the debounce.
 - Keeps separate history for channels, DMs, group DMs, and threads.
-- Search saved drafts by conversation or text.
-- Restore a saved version directly to Discord's composer. **Restoring never sends the message.**
+- Search by server, conversation, or saved text.
+- Restore a saved version to Discord's composer. **Restoring never sends a message.**
 - Delete individual versions or clear a conversation's history.
-- Local storage only: no external API, telemetry, or third-party server.
+- Uses the client's local DataStore; DraftVault does not send drafts to an external service.
 
 ## Installation
 
-DraftVault is a **source-build userplugin**. It is intended for Vencord and Equicord builds that support src/userplugins.
+DraftVault is a **source-build userplugin** for Vencord and Equicord. It is not installed through the regular plugin list in prebuilt clients.
 
 ### Already built Vencord or Equicord from source?
 
@@ -41,15 +42,22 @@ DraftVault is a **source-build userplugin**. It is intended for Vencord and Equi
 
 ### Build Vencord from source
 
-If you have not built Vencord from source yet, install Git, Node.js LTS, and pnpm, then run:
+If you have not built Vencord yet, install Git, Node.js LTS, and pnpm, then clone the source:
 
     git clone https://github.com/Vendicated/Vencord.git
     cd Vencord
     pnpm install --frozen-lockfile
+
+Next, extract the DraftVault beta package and move its entire **DraftVault** folder into:
+
+    src/userplugins/DraftVault/
+
+Then, from the Vencord source root, run:
+
     pnpm build
     pnpm inject
 
-Then follow the steps above to move DraftVault into src/userplugins/DraftVault/, rebuild, and enable it.
+Enable **DraftVault** in **Settings → Plugins** after restarting Discord.
 
 For a visual walkthrough of building Vencord from source, see:
 
@@ -57,31 +65,38 @@ For a visual walkthrough of building Vencord from source, see:
 
 ### Build Equicord from source
 
-For Equicord, use the Equicord repository and its own source tree:
+For Equicord, use its own repository and source directory:
 
     git clone https://github.com/Equicord/Equicord.git
     cd Equicord
     pnpm install --frozen-lockfile
+
+Extract the DraftVault beta package and move its entire **DraftVault** folder into:
+
+    src/userplugins/DraftVault/
+
+Then, from the Equicord source root, run:
+
     pnpm build
     pnpm inject
 
-Then follow the same plugin-folder steps above, moving the entire DraftVault folder into src/userplugins/DraftVault/, rebuilding, and enabling it in **Settings → Plugins**.
+Enable **DraftVault** in **Settings → Plugins** after restarting Discord.
 
 ## How to use
 
 1. Open DraftVault using the vault icon in the chat toolbar, or choose **Open DraftVault** from the client toolbox.
 2. Select a conversation and browse its saved versions.
-3. Choose **Restore this draft** to return to that conversation and put the selected text back into the composer.
+3. Choose **Restore this draft** to return to that conversation and restore the text to the composer.
 4. Use the delete control beside a version to remove it, or **Clear history** to clear that conversation's saved drafts.
 
 ## Privacy and limitations
 
 - DraftVault stores **text only**. It does not save or restore attachments, uploads, stickers, or other composer state.
-- Drafts are stored locally through the client's DataStore and separated by Discord user ID. They are not sent to an external server.
+- Drafts are stored locally through the client's DataStore (IndexedDB), separated by Discord user ID. The plugin does not make network requests or send draft contents to an external service.
 - Drafts are sensitive and are **not independently encrypted** by DraftVault. Protect your local Discord/Vencord/Equicord data directory.
-- Autosaves follow Discord's native DraftStore updates and use a 550 ms debounce. Very recent typing may not be captured until Discord emits an update.
-- Keeps up to **25 versions per conversation** for **30 days**, across up to **60 conversations**.
-- This release is experimental. Full source-client builds and live restore testing have not been completed for every Vencord/Equicord version.
+- Very recent typing may not be captured until Discord emits a native draft-store update.
+- Keeps up to **25 versions per conversation**, for **30 days**, across up to **60 conversations**.
+- This release is experimental. A full live-client build and restore test has not been completed for every Vencord/Equicord version.
 
 ## License
 
