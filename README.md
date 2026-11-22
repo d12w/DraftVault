@@ -9,7 +9,7 @@ DraftVault is a local Discord draft-history plugin for **Vencord and Equicord**.
 
 ## Preview
 
-Watch the author-recorded DraftVault preview:
+DraftVault preview:
 
 [Google Drive — DraftVault Preview](https://drive.google.com/file/d/13kVLufr7euWAeP52E6kGI1i1UrHSaaGj/view?usp=sharing)
 
