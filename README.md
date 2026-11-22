@@ -26,8 +26,8 @@ DraftVault is a **source-build userplugin**. It is intended for Vencord and Equi
 
 ### Already built Vencord or Equicord from source?
 
-1. Download the [latest DraftVault ZIP](https://github.com/d12w/DraftVault/archive/refs/heads/main.zip) and extract it.
-2. Move the entire **DraftVault** folder into your client source directory:
+1. Download and extract the [DraftVault 0.1.0 beta package](DraftVault-0.1.0-beta.zip).
+2. Move the entire **DraftVault** folder from the extracted ZIP into your client source directory:
 
        src/userplugins/DraftVault/
 
