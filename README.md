@@ -2,6 +2,7 @@
 
 > [!WARNING]
 > **BETA ONLY — DraftVault is currently in beta.** It is experimental software and may contain bugs or behavior changes. Do not rely on it as your only copy of important drafts.
+> **Note: the plugins supports Both Vencord/Equicord.
 
 DraftVault is a local Discord draft-history plugin for **Vencord and Equicord**. It automatically keeps previous text versions of your unsent messages so you can search, browse, and restore a draft to Discord's composer without sending it.
 
